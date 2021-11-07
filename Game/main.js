@@ -210,12 +210,14 @@ class Player {
                     this.reanimate();
                     totalSum = 0;
                     this._textbox = null;
+                    return;
                 }
 
                 else {
                     this.destroy = true;
                     alert(`Actual answer ${totalSum} : Your answer ${parseInt(this._textbox, 10)}`);
                     refresh();
+                    return;
                 }
             }
 
@@ -224,6 +226,7 @@ class Player {
                 alert(`Actual answer : ${totalSum}`);
                 refresh();
                 this._popupTimeout = null;
+                return;
             }
         }
 
