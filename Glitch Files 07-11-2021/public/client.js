@@ -4,13 +4,11 @@ submitBtn.addEventListener("click", submitDataToServer);
 // const getBtn = document.getElementById("display-scores-btn");
 // getBtn.addEventListener("click", getDataFromServer);
 
-const domainPrefix = true;
+const domainPrefix = false;
 const URLname = (domainPrefix) ? "https://astonishing-horn-play.glitch.me" : "";
 console.log((URLname) ? URLname : "Using relative URL (idk what its called)");
 
 var globalData = [];
-
-
 
 // Submit clicked so post the data to the server
 function submitDataToServer() {
@@ -34,31 +32,22 @@ function submitDataToServer() {
 
 
 // Send a request to the server to query the db and send the data back
-function getDataFromServer(reciever) {
-
-    // Very simple wrapper to pass this.responseText attr into function
-    // This is to satisfy the restraints of the XMLHttpRequest stuff
-    function getWrapper(func) {
-        return function() { func(this.responseText); }
-    }
+function getDataFromServer(receiver) {
 
     console.log("getScores()"); // display a debug message
 
     // request the data from the database
     const requestMsg = new XMLHttpRequest();
-    requestMsg.addEventListener("load", getWrapper(reciever)); // attach a listener
+    requestMsg.addEventListener("load", receiver); // attach a listener
     requestMsg.open("get", URLname + "/getScores"); // open a HTTP GET request
     requestMsg.send();
 }
 
+function updateClientDataTable() {
+    var responseText = this.responseText;
 
-function testUpdate(responseText) {
-    updateClientDataTable(responseText);
-    alert(globalData);
-}
+    console.log(responseText);
 
-
-function updateClientDataTable(responseText) {
     let users = JSON.parse(responseText);
     globalData = [];
 
@@ -93,8 +82,10 @@ function updateClientDataTable(responseText) {
 // let checkValidScorePOST = () => getDataFromServer(checkServerScores);
 
 
-function displayData(responseText) {
+function displayData() {
     console.log("displayData()");
+    var responseText = this.responseText;
+    console.log(responseText);
 
     // You guys it changed an attribute of the function!
     let users = JSON.parse(responseText);

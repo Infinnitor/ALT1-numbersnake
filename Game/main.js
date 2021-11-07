@@ -143,93 +143,98 @@ class Player {
         this.SNAKEBIT_LIFETIME += 10;
     }
 
-    updateMove() {
-        let oldX = this.x;
-        let oldY = this.y;
+    _updateVelocity() {
+        if (this._directionCase != "HORIZONTAL") {
 
-        if (!this._frozen) {
-
-            if (this._directionCase != "HORIZONTAL") {
-
-                if (keyIsDown(LEFT_ARROW)) {
-                    this.vel = [-this.speed, 0];
-                    this.addBit();
-                    this._directionCase = "HORIZONTAL";
-                }
-
-                if (keyIsDown(RIGHT_ARROW)) {
-                    this.vel = [this.speed, 0];
-                    this.addBit();
-                    this._directionCase = "HORIZONTAL";
-                }
+            if (keyIsDown(LEFT_ARROW)) {
+                this.vel = [-this.speed, 0];
+                this.addBit();
+                this._directionCase = "HORIZONTAL";
             }
 
-            if (this._directionCase != "VERTICAL") {
-                if (keyIsDown(UP_ARROW)) {
-                    this.vel = [0, -this.speed];
-                    this.addBit();
-                    this._directionCase = "VERTICAL";
-                }
-
-                if (keyIsDown(DOWN_ARROW)) {
-                    this.vel = [0, this.speed];
-                    this.addBit();
-                    this._directionCase = "VERTICAL";
-                }
+            if (keyIsDown(RIGHT_ARROW)) {
+                this.vel = [this.speed, 0];
+                this.addBit();
+                this._directionCase = "HORIZONTAL";
             }
-
-            this.x += this.vel[0];
-            this.y += this.vel[1];
         }
 
-        else if (this._popupTimeout) {
+        if (this._directionCase != "VERTICAL") {
+            if (keyIsDown(UP_ARROW)) {
+                this.vel = [0, -this.speed];
+                this.addBit();
+                this._directionCase = "VERTICAL";
+            }
 
-            if (keyIsPressed === true) {
-                if (!this._lastPress) {
-                    this._lastPress = true;
+            if (keyIsDown(DOWN_ARROW)) {
+                this.vel = [0, this.speed];
+                this.addBit();
+                this._directionCase = "VERTICAL";
+            }
+        }
 
-                    let stringInts = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        this.x += this.vel[0];
+        this.y += this.vel[1];
+    }
 
-                    if (stringInts.includes(key)) {
-                        this._textbox += key;
-                    }
-                    else if (keyIsDown(BACKSPACE)) {
-                        // Remove last character
-                        this._textbox = this._textbox.slice(0, this._textbox.length - 1)
-                    }
+    // Function
+    _updateTextbox() {
+        if (keyIsPressed === true) {
+            if (!this._lastPress) {
+                this._lastPress = true;
+
+                let stringInts = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+                if (stringInts.includes(key)) {
+                    this._textbox += key;
                 }
+                else if (keyIsDown(BACKSPACE)) {
+                    // Remove last character
+                    this._textbox = this._textbox.slice(0, this._textbox.length - 1)
+                }
+            }
+        }
+
+        else {
+            this._lastPress = false;
+        }
+
+        if (keyIsDown(ENTER)) {
+            // Base 10 parse
+            if (parseInt(this._textbox, 10) == totalSum) {
+                this.reanimate();
+                totalSum = 0;
+                this._textbox = null;
+                return;
             }
 
             else {
-                this._lastPress = false;
-            }
-
-            if (keyIsDown(ENTER)) {
-                // Base 10 parse
-                if (parseInt(this._textbox, 10) == totalSum) {
-                    this.reanimate();
-                    totalSum = 0;
-                    this._textbox = null;
-                    return;
-                }
-
-                else {
-                    this.destroy = true;
-                    alert(`Actual answer ${totalSum} : Your answer ${parseInt(this._textbox, 10)}`);
-                    refresh();
-                    return;
-                }
-            }
-
-            // If more than COUNTDOWN_FRAMES have elapsed, kill the guy
-            if (FRAMES - this._popupTimeout > this.COUNTDOWN_FRAMES && this.snakebits.length < 2) {
-                alert(`Actual answer : ${totalSum}`);
+                this.destroy = true;
+                alert(`Actual answer ${totalSum} : Your answer ${parseInt(this._textbox, 10)}`);
                 refresh();
-                this._popupTimeout = null;
                 return;
             }
         }
 
+        // If more than COUNTDOWN_FRAMES have elapsed, kill the guy
+        if (FRAMES - this._popupTimeout > this.COUNTDOWN_FRAMES && this.snakebits.length < 2) {
+            alert(`Actual answer : ${totalSum}`);
+            refresh();
+            this._popupTimeout = null;
+            return;
+        }
+    }
+
+    updateMove() {
+        if (!this._frozen) {
+            this._updateVelocity();
+        }
+
+        else if (this._popupTimeout) {
+            this._updateTextbox()
+        }
+
+        // Teleporting
         if (this.x > winW) {
             this.x = -this.w;
         }
@@ -246,15 +251,16 @@ class Player {
             this.y = winH;
         }
 
+        // Updating tail length
         if (this._currentbit) {
             if (distance([this.x, this.y], [this._currentbit.x, this._currentbit.y]) > this.w/2) {
                 this.addBit();
             }
-
         } else {
             this.addBit();
         }
 
+        // Updating snakebits
         this._updateBits();
     }
 
