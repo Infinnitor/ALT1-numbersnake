@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <script src="client.js" charset="utf-8" defer></script>
+        <title>NumberSnake</title>
+    </head>
+
+    <body>
+        <header>
+          <h1>A list of highscores</h1>
+        </header>
+
+        <h3 id="maaa">Add a new highscore</h3>
+
+        <form>
+            <label>User</label>
+            <input id="userName" name="userName" placeholder="" />
+
+            <br>
+
+            <label>Score</label>
+            <input id="scoreVal" name="scoreVal" placeholder="" />
+
+            <br>
+
+            <button id="submit-btn" type="submit" name="button">Submit</button>
+            <br><br>
+        </form>
+
+        <button id="display-scores-btn" onclick="getDataFromServer(displayData)">
+          Display Scores
+        </button>
+
+        <button id="display-scores-btn" onclick="getDataFromServer(testUpdate)">
+          Display Scores
+        </button>
+
+        <div id="rowlist"></div>
+
+    </body>
+</html>
