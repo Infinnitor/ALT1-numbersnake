@@ -30,7 +30,7 @@ app.post("/putData", function(request, response) {
 
   // Construct insert statement
   // Example: INSERT INTO scores(displayname, score) VALUES ("Mario", 2)
-  let insStr = "INSERT INTO scores(displayname, score) VALUES (";
+  var insStr = "INSERT INTO scores(displayname, score) VALUES (";
   insStr = insStr + "\"" + request.body.username + "\", ";
   insStr = insStr + request.body.score + ");";
   console.log(insStr);
