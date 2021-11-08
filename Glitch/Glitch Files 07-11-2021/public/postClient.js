@@ -5,7 +5,6 @@ console.log((URLname) ? URLname : "Using relative URL (idk what its called)");
 var globalData = [];
 var preventSubmitDefault = false;
 
-const eventRef = event;
 
 // Submit clicked so post the data to the server
 function submitDataToServer(playerName, playerScore, endFunc) {
@@ -31,3 +30,15 @@ function submitDataToServer(playerName, playerScore, endFunc) {
         setTimeout(endFunc, 1000);
     }
 }
+
+
+function checkLocalStorage() {
+    let localStore = window.localStorage;
+    let localID = localStore.getItem("userID");
+
+    alert(localID);
+}
+
+
+console.log("ALERT");
+checkLocalStorage();

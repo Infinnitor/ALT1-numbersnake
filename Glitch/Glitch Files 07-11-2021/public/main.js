@@ -328,7 +328,7 @@ class Player {
         }
 
         if (this.destroy) {
-            fill(this.c);
+            fill(this._snakeColours[0]);
             circle(this.x+this.w/2, this.y+this.h/2, this.destroyR);
         }
 

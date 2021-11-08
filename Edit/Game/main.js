@@ -1,7 +1,8 @@
 var player;
 
 var number;
-const MAX_NUMBER_CHOICE = 10;
+// Not inclusive
+const MAX_NUMBER_CHOICE = 11;
 
 var totalSum = 0;
 var SCORE = 0;
@@ -86,7 +87,6 @@ class Player {
 
         this.destroy = false;
         this.destroying = false;
-
     }
 
     kill() {
@@ -106,7 +106,6 @@ class Player {
             this._popupTimeout = FRAMES;
         }
         this._textbox = "";
-
     }
 
     reanimate() {
@@ -295,7 +294,6 @@ class Player {
         }
 
         this.snakebits = undestroyed;
-
     }
 
     _drawBits() {
@@ -328,10 +326,9 @@ class Player {
         }
 
         if (this.destroy) {
-            fill(this.c);
+            fill(this._snakeColours[0]);
             circle(this.x+this.w/2, this.y+this.h/2, this.destroyR);
         }
-
     }
 
     // Function to update the funny little eyes
@@ -369,7 +366,6 @@ class Player {
     }
 
     wideEyes(a) { this._eyeR = a; }
-
 }
 
 
@@ -570,6 +566,7 @@ class TextPrompt {
         if (keyIsDown(ENTER)) {
 
             if (this._submitEvent) {
+                window.localStorage.setItem("localName", this.input);
                 this._submitEvent();
             }
 
@@ -597,14 +594,16 @@ class TextPrompt {
             text(this.prompt, this.x, this.y - 55);
         }
     }
-
 }
 
 
 function highscorePrompt() {
-    enterHighscore = new TextPrompt([winW/2, winH/2], "ENTER YOUR USERNAME", color(95, 20, 20), false, "FINN");
-    enterHighscore.addSubmitEvent(function() {
+    let localUsername = window.localStorage.getItem("localName");
+    let placeholderText = (localUsername) ? localUsername : "";
 
+    enterHighscore = new TextPrompt([winW/2, winH/2], "ENTER YOUR USERNAME", color(95, 20, 20), false, placeholderText);
+    enterHighscore.addSubmitEvent(function()
+    {
         if (!highscoreCalled) {
             highscoreCalled = true;
             submitDataToServer(enterHighscore.input, SCORE, function() {

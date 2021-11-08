@@ -30,16 +30,33 @@ app.post("/putData", function(request, response) {
 
   // Construct insert statement
   // Example: INSERT INTO scores(displayname, score) VALUES ("Mario", 2)
-  let insStr = "INSERT INTO scores(displayname, score) VALUES (";
+  var insStr = "INSERT INTO scores(displayname, score) VALUES (";
   insStr = insStr + "\"" + request.body.username + "\", ";
   insStr = insStr + request.body.score + ");";
   console.log(insStr);
 
   // We can test the thing without actually modifying the database
-  if (request.body.username == "TEST") {
+  if (request.body.username == "0451") {
       console.log("TEST detected");
   }
   else { db.run(insStr); }
+});
+
+
+// Process the HTTP POST request for /addNewUserID
+app.post("/addNewUserID", function(request, response) {
+  console.log("In app.post (/addNewUserID)");
+
+  // Construct insert statement
+  var insStr = "INSERT INTO uniqueUsers(userID) VALUES (";
+  insStr = insStr + request.body.userID + ");";
+  console.log(insStr);
+
+  if (request.body.userID) {
+      db.run(insStr);
+  }
+
+  else { console.log("Bad user ID detected"); }
 });
 
 
@@ -47,7 +64,16 @@ app.post("/putData", function(request, response) {
 app.get("/getScores", function(request, response) {
   console.log("Getting scores");
   db.all("SELECT * from scores", function(err, rows) {
-    console.log(rows);
+    response.send(JSON.stringify(rows));
+  });
+});
+
+
+// Process the HTTP GET request for /getData
+app.get("/getUniqueUser", function(request, response) {
+  console.log("Getting scores");
+  db.all("SELECT * from uniqueUsers", function(err, rows) {
+      console.log(rows);
     response.send(JSON.stringify(rows));
   });
 });

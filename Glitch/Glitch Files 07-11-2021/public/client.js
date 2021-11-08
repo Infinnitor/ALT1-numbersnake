@@ -45,17 +45,13 @@ function getDataFromServer(receiver) {
 
 function updateClientDataTable() {
     var responseText = this.responseText;
-  
+
     console.log(responseText);
-  
+
     let users = JSON.parse(responseText);
     globalData = [];
 
     users.forEach(function(row) {
-        // const newListItem = document.createElement("li");
-        // newListItem.innerHTML = row["displayname"] + " : " + row["score"];
-        // rowList.appendChild(newListItem);
-
         let scoreObj = {
             username: row["displayname"],
             score: parseInt(row["score"])
@@ -64,22 +60,6 @@ function updateClientDataTable() {
         globalData.push(scoreObj);
     });
 }
-
-
-// function checkServerScores(responseText) {
-//     let dataTable = JSON.parse(responseText);
-//
-//     let testUsername = document.getElementById("userName").value;
-//
-//     let rowList = [];
-//     dataTable.forEach(function(row) { rowList.push(row["displayname"]); });
-//
-//     if (rowList.contains(testUsername)) {
-//         alert("USERNAME ALREADY EXISTS");
-//     }
-// }
-//
-// let checkValidScorePOST = () => getDataFromServer(checkServerScores);
 
 
 function displayData() {
@@ -97,10 +77,6 @@ function displayData() {
     let rowList = [];
     // iterate through every row and add it to our page
     users.forEach(function(row) {
-        // const newListItem = document.createElement("li");
-        // newListItem.innerHTML = row["displayname"] + " : " + row["score"];
-        // rowList.appendChild(newListItem);
-
         let scoreObj = {
             username: row["displayname"],
             score: parseInt(row["score"])
