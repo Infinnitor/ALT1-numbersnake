@@ -42,16 +42,13 @@ function checkLocalStorage() {
     let localID = window.localStorage.getItem("userID");
 
     var addLocalID = function() {
-        console.log(this.responseText);
         let userIDs = JSON.parse(this.responseText);
         userIDs.forEach(function(row) {
             globalUserIDs.push(parseInt(row, 10));
         });
 
         window.localStorage.setItem("userID", globalUserIDs.length);
-
         let newLocalID = window.localStorage.getItem("userID");
-
         let newID = {
             userID: newLocalID,
         };
@@ -62,8 +59,6 @@ function checkLocalStorage() {
         postRequest.send(JSON.stringify(newID));
     }
 
-    alert(localID);
-
     // If it doesn't exist, then get list of IDs from server and add new ID
     if (!localID) {
         const requestMsg = new XMLHttpRequest();
@@ -73,7 +68,6 @@ function checkLocalStorage() {
     }
 
     idPreventDefault = false;
-
 }
 
 checkLocalStorage();

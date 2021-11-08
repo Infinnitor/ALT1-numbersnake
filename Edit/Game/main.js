@@ -212,7 +212,6 @@ class Player {
 
             else {
                 this.destroy = true;
-                alert(`Actual answer ${totalSum} : Your answer ${parseInt(this._textbox, 10)}`);
                 this.destroy = true;
                 return;
             }
@@ -220,7 +219,6 @@ class Player {
 
         // If more than COUNTDOWN_FRAMES have elapsed, kill the guy
         if (FRAMES - this._popupTimeout > this.COUNTDOWN_FRAMES && this.snakebits.length < 2) {
-            alert(`Actual answer : ${totalSum}`);
             this.destroy = true;
             this._popupTimeout = null;
             return;

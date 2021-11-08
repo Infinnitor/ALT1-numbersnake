@@ -71,9 +71,8 @@ app.get("/getScores", function(request, response) {
 
 // Process the HTTP GET request for /getData
 app.get("/getUniqueUser", function(request, response) {
-  console.log("Getting scores");
+  console.log("Getting IDs");
   db.all("SELECT * from uniqueUsers", function(err, rows) {
-      console.log(rows);
     response.send(JSON.stringify(rows));
   });
 });
