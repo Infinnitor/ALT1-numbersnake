@@ -8,11 +8,8 @@ const domainPrefix = true;
 const URLname = (domainPrefix) ? "https://astonishing-horn-play.glitch.me" : "";
 console.log((URLname) ? URLname : "Using relative URL (idk what its called)");
 
-var globalData = [];
 
-
-
-// Submit clicked so post the data to the server
+// This function is not used in this file, it is here for reference
 function submitDataToServer() {
     console.log("SUBMIT clicked!!!"); // display a message
     // create an object to post to the server
@@ -50,47 +47,6 @@ function getDataFromServer(reciever) {
     requestMsg.open("get", URLname + "/getScores"); // open a HTTP GET request
     requestMsg.send();
 }
-
-
-function testUpdate(responseText) {
-    updateClientDataTable(responseText);
-    alert(globalData);
-}
-
-
-function updateClientDataTable(responseText) {
-    let users = JSON.parse(responseText);
-    globalData = [];
-
-    users.forEach(function(row) {
-        // const newListItem = document.createElement("li");
-        // newListItem.innerHTML = row["displayname"] + " : " + row["score"];
-        // rowList.appendChild(newListItem);
-
-        let scoreObj = {
-            username: row["displayname"],
-            score: parseInt(row["score"])
-        }
-
-        globalData.push(scoreObj);
-    });
-}
-
-
-// function checkServerScores(responseText) {
-//     let dataTable = JSON.parse(responseText);
-//
-//     let testUsername = document.getElementById("userName").value;
-//
-//     let rowList = [];
-//     dataTable.forEach(function(row) { rowList.push(row["displayname"]); });
-//
-//     if (rowList.contains(testUsername)) {
-//         alert("USERNAME ALREADY EXISTS");
-//     }
-// }
-//
-// let checkValidScorePOST = () => getDataFromServer(checkServerScores);
 
 
 function displayData(responseText) {
