@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <script src="client.js" charset="utf-8" defer></script>
+        <title>NumberSnake</title>
+    </head>
+
+    <body>
+        <header>
+          <h1 id="highscores-title">Highscores</h1>
+        </header>
+
+        <button id="display-scores-btn" onclick="getDataFromServer(displayData)">
+          Display Scores
+        </button>
+
+        <div id="rowlist">
+			<ol>
+				<li>Isobel : 1</li>
+				<li>Finn : 0</li>
+			</ol>
+		</div>
+
+    </body>
+	
+<style>
+	body {
+		background-color: #3c3535;
+		background-image: url("https://stratfordcollegedublin-my.sharepoint.com/personal/imurphy2016_student_stratfordcollege_ie/Documents/Alt%201/snake-bg-opac.png");		
+	}
+	
+	button {
+	  background-color: #991515; /* Red */ /* #ed3d3d */
+	  border: none;
+	  color: white;
+	  padding: 36px 62px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 44px;
+	  font-family: Arial Black;
+	  
+	  transition-duration: 0.4s;
+	  cursor: pointer;
+	  border-radius: 10px;
+	  
+	  /* Centering */
+	  margin-top: 50px;
+	  position: absolute;
+	  left: 37%;
+	}
+
+	button:hover {
+		background-color: #ed3d3d;
+	}
+
+	#rowlist {
+		margin-top: 17%;
+		left: 25%;
+		font-size: 34px;
+		font-family: Arial Black;
+		text-align: center;
+		color: white;
+		
+		text-shadow: 5px 5px #991515;
+	
+	}
+
+	#highscores-title {
+		left: 25%;
+		font-size: 64px;
+		font-family: Arial Black;
+		text-align: center;
+		color: white;
+		
+		text-shadow: 5px 5px #991515;
+	}
+
+</style>
+	
+</html>
