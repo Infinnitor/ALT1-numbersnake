@@ -50,10 +50,6 @@ function displayData(responseText) {
 
     let users = JSON.parse(responseText);
 
-    // Get the <ol> tag
-    const rowHTML = document.getElementById("rowlist");
-    rowHTML.innerHTML = "";
-
     // Assemble a list of all the scores from the responseText
     let rowList = [];
     users.forEach(function(row) {
@@ -69,6 +65,10 @@ function displayData(responseText) {
     rowList.sort((a, b) => a.score - b.score);
     rowList.reverse();
 
+    // Get the <ol> tag
+    const rowHTML = document.getElementById("rowlist-ol");
+    rowHTML.innerHTML = "";
+
     // Add rowList items to HTML
     for (let i=0; i<rowList.length; i++) {
         // Only top 5
@@ -81,3 +81,6 @@ function displayData(responseText) {
         rowHTML.appendChild(newListItem);
     }
 }
+
+
+setTimeout(getDataFromServer(displayData), 500);
