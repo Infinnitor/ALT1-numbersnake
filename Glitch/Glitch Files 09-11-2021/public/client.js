@@ -71,6 +71,11 @@ function displayData(responseText) {
 
     // Add rowList items to HTML
     for (let i=0; i<rowList.length; i++) {
+        // Only top 5
+        if (i > 4) {
+            break;
+        }
+
         let newListItem = document.createElement("li");
         newListItem.innerHTML = rowList[i].username + " : " + rowList[i].score;
         rowHTML.appendChild(newListItem);

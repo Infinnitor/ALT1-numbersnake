@@ -15,8 +15,8 @@
           Display Scores
         </button>
 
-        <div>
-			<ol id=rowList>
+        <div id=rowList>
+			<ol>
 				<li>Isobel : 1</li>
 				<li>Finn : 0</li>
 			</ol>
@@ -25,38 +25,51 @@
     </body>
 
 <style>
-	body {
-		background-color: #3c3535;
-		background-image: url("https://stratfordcollegedublin-my.sharepoint.com/personal/imurphy2016_student_stratfordcollege_ie/Documents/Alt%201/snake-bg-opac.png");
-	}
+    body {
+        background-color: #3c3535;
+        background-image: url("https://i.imgur.com/Fd5wl7J.png");
+    }
 
 	button {
-	  background-color: #991515; /* Red */ /* #ed3d3d */
-	  border: none;
-	  color: white;
-	  padding: 36px 62px;
-	  text-align: center;
-	  text-decoration: none;
-	  display: inline-block;
-	  font-size: 44px;
-	  font-family: Arial Black;
+        background-color: #991515; /* Red */ /* #ed3d3d */
+        border: none;
+        color: white;
+        padding: 36px 62px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 44px;
+        font-family: Arial Black;
 
-	  transition-duration: 0.4s;
-	  cursor: pointer;
-	  border-radius: 10px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 10px;
 
-	  /* Centering */
-	  margin-top: 50px;
-	  position: absolute;
-	  left: 37%;
+        /* Centering */
+        margin-top: 50px;
+        position: absolute;
+        left: 37%;
 	}
 
 	button:hover {
 		background-color: #ed3d3d;
 	}
 
-	#rowlist {
-		margin-top: 17%;
+    #rowList {
+        margin-top: 17%;
+        border: 10px solid #991515;
+        margin-left: 30%;
+        margin-right: 30%;
+        border-radius: 15px;
+    }
+
+    #rowList:hover {
+        background: #991515;
+        transition-duration: 0.4s;
+    }
+
+	ol li {
+		/* margin-top: 17%; */
 		left: 25%;
 		font-size: 34px;
 		font-family: Arial Black;

@@ -652,7 +652,7 @@ function draw() {
         player.updateMove();
 
 
-        fill(10);
+        fill(125);
         textSize(50); textAlign(LEFT);
         textStyle(BOLD);
         text("SCORE: " + SCORE.toString(), 42, 55);
