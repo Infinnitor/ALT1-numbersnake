@@ -1,9 +1,4 @@
-const submitBtn = document.getElementById("submit-btn");
-submitBtn.addEventListener("click", submitDataToServer);
-
-// const getBtn = document.getElementById("display-scores-btn");
-// getBtn.addEventListener("click", getDataFromServer);
-
+// Prefix all requests with this URL is domainPrefix is true
 const domainPrefix = true;
 const URLname = (domainPrefix) ? "https://astonishing-horn-play.glitch.me" : "";
 console.log((URLname) ? URLname : "Using relative URL (idk what its called)");
@@ -19,8 +14,8 @@ function submitDataToServer() {
         score: document.getElementById("scoreVal").value
     };
 
-    // JUST USE THESE LINES AS THEY ARE - NO NEED TO CHANGE
-    event.preventDefault(); // prevents 2 calls to this function!!
+    // This line does not work on Firefox. Sometimes
+    event.preventDefault(); // Prevents 2 calls to this function
 
     const requestMsg = new XMLHttpRequest();
     requestMsg.open("post", URLname + "/putData", true); // open a HTTP post request
@@ -30,18 +25,18 @@ function submitDataToServer() {
 }
 
 
-// Send a request to the server to query the db and send the data back
+// Send a request to the server to query the database and send the data back
 function getDataFromServer(reciever) {
 
-    // Very simple wrapper to pass this.responseText attr into function
+    // Very simple wrapper to pass this.responseText attribute into function
     // This is to satisfy the restraints of the XMLHttpRequest stuff
     function getWrapper(func) {
         return function() { func(this.responseText); }
     }
 
-    console.log("getScores()"); // display a debug message
+    console.log("getScores()");
 
-    // request the data from the database
+    // Assemble a get request to the server for the data
     const requestMsg = new XMLHttpRequest();
     requestMsg.addEventListener("load", getWrapper(reciever)); // attach a listener
     requestMsg.open("get", URLname + "/getScores"); // open a HTTP GET request
@@ -49,23 +44,19 @@ function getDataFromServer(reciever) {
 }
 
 
+// Function for tunring recieved data into a HTML list and displaying it
 function displayData(responseText) {
     console.log("displayData()");
 
-    // You guys it changed an attribute of the function!
     let users = JSON.parse(responseText);
 
-    // define variables that reference elements on our page
+    // Get the <ol> tag
     const rowHTML = document.getElementById("rowlist");
     rowHTML.innerHTML = "";
 
+    // Assemble a list of all the scores from the responseText
     let rowList = [];
-    // iterate through every row and add it to our page
     users.forEach(function(row) {
-        // const newListItem = document.createElement("li");
-        // newListItem.innerHTML = row["displayname"] + " : " + row["score"];
-        // rowList.appendChild(newListItem);
-
         let scoreObj = {
             username: row["displayname"],
             score: parseInt(row["score"])
@@ -74,9 +65,11 @@ function displayData(responseText) {
         rowList.push(scoreObj);
     });
 
+    // Sort the list with highest scores first
     rowList.sort((a, b) => a.score - b.score);
     rowList.reverse();
 
+    // Add rowList items to HTML
     for (let i=0; i<rowList.length; i++) {
         let newListItem = document.createElement("li");
         newListItem.innerHTML = rowList[i].username + " : " + rowList[i].score;

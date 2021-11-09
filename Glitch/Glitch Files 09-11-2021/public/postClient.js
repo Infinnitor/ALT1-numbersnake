@@ -4,7 +4,7 @@ console.log((URLname) ? URLname : "Using relative URL (idk what its called)");
 
 var globalUserIDs = [];
 
-// Have to make these bools to prevent multiple function calls because of Firefox JS.event
+// Have to make these bools to prevent multiple function calls because of Firefox
 var idPreventDefault = false;
 var preventSubmitDefault = false;
 
@@ -14,14 +14,15 @@ function submitDataToServer(playerName, playerScore, endFunc) {
     if (preventSubmitDefault) { return; }
     preventSubmitDefault = true;
 
-    console.log("SUBMIT clicked!!!"); // display a message
-    // create an object to post to the server
-    // IMPORTANT: ONE NAME - VALUE PAIR FOR EACH FIELD
+    console.log("SUBMIT clicked!!!");
+
+    // Create object that will be posted to the server
     let dataObj = {
         username: playerName,
         score: playerScore
     };
 
+    // Assemble HTTP POST request
     const requestMsg = new XMLHttpRequest();
     requestMsg.open("post", URLname + "/putData", true); // open a HTTP post request
     requestMsg.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -42,6 +43,8 @@ function checkLocalStorage() {
     let localID = window.localStorage.getItem("userID");
 
     var addLocalID = function() {
+
+        // Post a new ID to the server
         let userIDs = JSON.parse(this.responseText);
         userIDs.forEach(function(row) {
             globalUserIDs.push(parseInt(row, 10));
@@ -68,7 +71,7 @@ function checkLocalStorage() {
     }
 
     idPreventDefault = false;
-
 }
 
+// Check the localStorage on startup
 checkLocalStorage();
